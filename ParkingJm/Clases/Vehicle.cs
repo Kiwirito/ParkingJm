@@ -12,14 +12,16 @@ namespace ParkingJm.Clases
         public string Tipo;
         public string Marca;
         public string Placa;
+       
         public Driver Conductor;
-    }
-     
-    public Vehicle(string tipo, string placa, string marca, Driver conductor)
-    {
-        Tipo = tipo;
-        Placa = placa;
-        Marca = marca;
-        Conductor = conductor;
+
+
+        public Vehicle(string placa, string tipo, string marca, Driver conductor)
+        {
+            Tipo = tipo;
+            Placa = placa;
+            Marca = marca;
+            Conductor = conductor;
+        }
     }
 }

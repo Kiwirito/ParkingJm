@@ -15,7 +15,7 @@ namespace ParkingJm.Clases_Container
         public string Sexo;
         public bool Afiliado;
 
-        public Driver() { } //Se crea un constructor vacio
+       
 
         public Driver(string nombre, string identificacion, string sexo, bool afiliado)
         {

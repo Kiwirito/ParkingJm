@@ -11,5 +11,9 @@ namespace ParkingJm.Clases
         public int PosicionParking;
         public List<object> parkcen;
         public int calculo;
+
+
+        
     }
+    
 }

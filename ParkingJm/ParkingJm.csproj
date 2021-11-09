@@ -136,6 +136,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\AfiliadosDatos.txt" />
+    <None Include="Resources\pua.png" />
+    <Content Include="Resources\VehiculosPark.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

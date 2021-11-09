@@ -193,6 +193,16 @@ namespace ParkingJm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pua {
+            get {
+                object obj = ResourceManager.GetObject("pua", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Rombo {
             get {
                 object obj = ResourceManager.GetObject("Rombo", resourceCulture);
