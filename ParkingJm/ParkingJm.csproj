@@ -134,5 +134,8 @@
   <ItemGroup>
     <None Include="Resources\Flecha.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\AfiliadosDatos.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
