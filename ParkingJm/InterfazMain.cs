@@ -93,10 +93,75 @@ namespace ParkingJm
                 }
                 parqueaderochek();
             }
+            if (File.Exists("espacioslibres.txt"))
+            {
+                foreach (string line in System.IO.File.ReadLines("espacioslibres.txt"))
+                {
+                    spacios = Convert.ToInt32(line);
+                    espaciosdis.Text ="Quedan " + spacios.ToString() + " espacios";
+                }
+            }
+            if (File.Exists("posicionplataforma.txt"))
+            {
+                foreach (string line in System.IO.File.ReadLines("posicionplataforma.txt"))
+                {
+                    banda = Convert.ToInt32(line);
+                    puestostxt.Text = "Lugar de la plataforma: " + banda.ToString();
+                }
+            }
+            if (File.Exists("HistorialInfo.txt"))
+            {
+                VentasBox.Clear();
+                foreach (string line in System.IO.File.ReadLines("HistorialInfo.txt"))
+                {
+                    VentasBox.Text = VentasBox.Text + "\n" + line;
+                }
+            }
+            totalc = 0;
+            if (File.Exists("TotalCambio.txt"))
+            {
+                foreach (string line in System.IO.File.ReadLines("TotalCambio.txt"))
+                {
+                    total = Convert.ToInt32(line);
+                    TotalBox.Text = "Total: " + total.ToString();
+                }
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            File.Delete("espacioslibres.txt");
+            string lugar1 = "espacioslibres.txt";
+            using (StreamWriter tk = File.AppendText(lugar1))
+            {
+                tk.WriteLine(spacios.ToString());
+            }
+            File.Delete("posicionplataforma.txt");
+            string lugar2 = "posicionplataforma.txt";
+            using (StreamWriter tk = File.AppendText(lugar2))
+            {
+                tk.WriteLine(banda.ToString());
+            }
+            File.Delete("ListaVehiculos.txt");
+            string lugar3 = "ListaVehiculos.txt";
+            using (StreamWriter tk = File.AppendText(lugar3))
+            {
+                foreach (Vehicle i in listavehiculos)
+                {
+                    tk.WriteLine(i.Placa + "," + i.Tipo + "," + i.Marca + "," + i.timestamp + "," + i.Conductor.Nombre + ";" + i.Conductor.Identificacion + ";" + i.Conductor.Sexo + ";" + i.Conductor.Afiliado);
+                }
+            }
+            File.Delete("TotalCambio.txt");
+            string lugar4 = "TotalCambio.txt";
+            using (StreamWriter tk = File.AppendText(lugar4))
+            {
+                tk.WriteLine(total.ToString());
+            }
+            string lugar5 = "HistorialInfo.txt";
+            using (StreamWriter sw = File.AppendText(lugar5))
+            {
+                sw.WriteLine(VentasBox.Text);
+            }
             Close();
         }
 
@@ -157,7 +222,7 @@ namespace ParkingJm
                 MessageBox.Show("Se inscribio el afiliado " + RegisterBox.Text + " correctamente");
             }
             drivers.Add(new Driver(RegisterBox.Text, IdenBox.Text, SeBox.Text, true));
-            //listavehiculos.Add(new Vehicle(PlacaBox.Text, MarcaBox.Text, TipoBox.Text,, true));
+         
             afiliadoslist();
             guardarlistafiliados(drivers[drivers.Count - 1]);
             RegisterBox.Text = "Nombre";
@@ -175,14 +240,7 @@ namespace ParkingJm
                 sw.WriteLine(nuevodriver.Nombre + "," + nuevodriver.Identificacion + "," + nuevodriver.Sexo + "," + nuevodriver.Afiliado);
             }
         }
-        private void Guardarlistaparkeadero(Vehicle nuevovehiculo)
-        {
-            string path = "VehiculosPark.txt";
-            using (StreamWriter tw = File.AppendText(path))
-            {
-                tw.WriteLine(nuevovehiculo.Placa + "," + nuevovehiculo.Tipo + "," + nuevovehiculo.Marca + "," + nuevovehiculo.Conductor);
-            }
-        }
+     
 
         private void afiliadoslist()
         {
@@ -192,8 +250,7 @@ namespace ParkingJm
                 comboBox1.Items.Add(x.Nombre);
             }    
         }
-     
-
+  
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -289,6 +346,7 @@ namespace ParkingJm
                 }
             }
             carrodato = new Vehicle(PlacaBox.Text, TipoBox.Text, MarcaBox.Text, obtenerdriver);
+            
             int caminoDerecho = 0;
             int caminoIzquierdo = 0;
             int ContDerecho = 1;
@@ -364,6 +422,7 @@ namespace ParkingJm
             spacios--;
             espaciosdis.Text ="Quedan " + spacios.ToString() + " espacios";
             listavehiculos = NuevaLista;
+     
             parqueaderochek();
 
             if (banda == 0)
@@ -374,12 +433,22 @@ namespace ParkingJm
             {
                 puestostxt.Text = "Lugar de la plataforma: " + banda.ToString();
             }
+            NombreBox2.Text = "Nombre";
+            IdenBox2.Text = "Identificacion";
+            SeBox2.Text = "Sexo";
+            comboBox1.Text = "Eres Afiliado?";
+            PlacaBox.Text = "Placa Carro";
+            MarcaBox.Text = "Marca Carro";
             
-
+            TipoBox.Text = "Tipo de carro";
         }
         public void parqueaderochek()
         {
-           
+            if (spacios == 0)
+            {
+                RegistrarCarroClick.Enabled = false;
+            }
+
             int countloop = 0;
             foreach (Vehicle i in listavehiculos)
             {
@@ -604,31 +673,38 @@ namespace ParkingJm
 
         private void LiquidarBtn_Click(object sender, EventArgs e)
         {
-            int tic = 0;
-            foreach (Vehicle i in listavehiculos)
+            if (InfoBox.Text == "!Asegurate de haber ingresado bien los datos del cliente o la placa del carro!" | textBox4.Text == "Buscar vehiculo por placa o identificación del cliente")
             {
-                if (i.Placa == vcobro.Placa | i.Conductor.Identificacion == vcobro.Conductor.Identificacion)
-                {
-                    spacios++;
-                    if (spacios > 0)
-                    {
-                        RegistrarCarroClick.Enabled = true;
-                        espaciosdis.Text = "Quedan " + spacios.ToString() + " espacios";
-                    }
-                    banda = tic + 1;
-                    listavehiculos[tic] = new Vehicle("Void", "Void", "Void", new Driver("Void", "Void", "Void", false));
-                    break;
-                }
-                tic++;
+                MessageBox.Show("No has ingresado ninguna placa o identificacion correctamente");
             }
-            parqueaderochek();
-            puestostxt.Text = "Lugar de la plataforma: " + banda.ToString() + " 1";
+            else
+            {
+                int tic = 0;
+                foreach (Vehicle i in listavehiculos)
+                {
+                    if (i.Placa == vcobro.Placa | i.Conductor.Identificacion == vcobro.Conductor.Identificacion)
+                    {
+                        spacios++;
+                        if (spacios > 0)
+                        {
+                            RegistrarCarroClick.Enabled = true;
+                            espaciosdis.Text = "Quedan " + spacios.ToString() + " espacios";
+                        }
+                        banda = tic + 1;
+                        listavehiculos[tic] = new Vehicle("Void", "Void", "Void", new Driver("Void", "Void", "Void", false));
+                        break;
+                    }
+                    tic++;
+                }
+                parqueaderochek();
+                puestostxt.Text = "Lugar de la plataforma: " + banda.ToString();
 
-            total = total + totalc;
-            TotalBox.Text = "Total: " + total.ToString();
+                total = total + totalc;
+                TotalBox.Text = "Total: " + total.ToString();
 
-            
-            VentasBox.Text = "\n" + VentasBox.Text + "\n" + "Información del carro: \n Placa: " + vcobro.Placa + "\n Tipo: " + vcobro.Tipo + "\n Marca: " + vcobro.Marca + "\n Información del cliente: \n Nombre: " + vcobro.Conductor.Nombre + "\n Identificación: " + vcobro.Conductor.Identificacion + "\n Sexo: " + vcobro.Conductor.Sexo + "\n Afiliacion: " + vcobro.Conductor.Afiliado;
+
+                VentasBox.Text = "\n" + VentasBox.Text + "\n" + "Información del carro: \n Placa: " + vcobro.Placa + "\n Tipo: " + vcobro.Tipo + "\n Marca: " + vcobro.Marca + "\n ----------------------" + "\n Información del cliente: \n Nombre: " + vcobro.Conductor.Nombre + "\n Identificación: " + vcobro.Conductor.Identificacion + "\n Sexo: " + vcobro.Conductor.Sexo + "\n Afiliacion: " + vcobro.Conductor.Afiliado;
+            }
         }
 
         private void pictureBox4_Click(object sender, EventArgs e)
@@ -735,6 +811,51 @@ namespace ParkingJm
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Car1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[0].Placa);
+        }
+
+        private void Car2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[1].Placa);
+        }
+
+        private void Car3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[2].Placa);
+        }
+
+        private void Car4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[3].Placa);
+        }
+
+        private void Car5_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[4].Placa);
+        }
+        private void Car6_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[5].Placa);
+        }
+        private void Car7_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[6].Placa);
+        }
+        private void Car8_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[7].Placa);
+        }
+        private void Car9_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[8].Placa);
+        }
+        private void Car10_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Placa del carro: " + listavehiculos[9].Placa);
         }
     }
 }

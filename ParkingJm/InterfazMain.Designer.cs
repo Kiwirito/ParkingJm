@@ -271,9 +271,6 @@ namespace ParkingJm
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.ForeColor = System.Drawing.Color.LightSlateGray;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Si",
-            "No"});
             this.comboBox1.Location = new System.Drawing.Point(685, 242);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(192, 28);
@@ -577,6 +574,7 @@ namespace ParkingJm
             this.Car5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Car5.TabIndex = 23;
             this.Car5.TabStop = false;
+            this.Car5.Click += new System.EventHandler(this.Car5_Click);
             // 
             // Car4
             // 
@@ -588,6 +586,7 @@ namespace ParkingJm
             this.Car4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Car4.TabIndex = 22;
             this.Car4.TabStop = false;
+            this.Car4.Click += new System.EventHandler(this.Car4_Click);
             // 
             // Car3
             // 
@@ -599,6 +598,7 @@ namespace ParkingJm
             this.Car3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Car3.TabIndex = 21;
             this.Car3.TabStop = false;
+            this.Car3.Click += new System.EventHandler(this.Car3_Click);
             // 
             // Car2
             // 
@@ -610,6 +610,7 @@ namespace ParkingJm
             this.Car2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Car2.TabIndex = 20;
             this.Car2.TabStop = false;
+            this.Car2.Click += new System.EventHandler(this.Car2_Click);
             // 
             // Car1
             // 
@@ -621,6 +622,7 @@ namespace ParkingJm
             this.Car1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Car1.TabIndex = 17;
             this.Car1.TabStop = false;
+            this.Car1.Click += new System.EventHandler(this.Car1_Click);
             // 
             // pictureBox3
             // 
