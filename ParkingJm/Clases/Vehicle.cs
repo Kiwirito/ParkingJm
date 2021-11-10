@@ -12,8 +12,8 @@ namespace ParkingJm.Clases
         public string Tipo;
         public string Marca;
         public string Placa;
-       
         public Driver Conductor;
+        public DateTime timestamp = DateTime.Now;
 
 
         public Vehicle(string placa, string tipo, string marca, Driver conductor)

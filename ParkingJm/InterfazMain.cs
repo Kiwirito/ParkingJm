@@ -20,6 +20,10 @@ namespace ParkingJm
         List<Driver> drivers;
         List<Vehicle> listavehiculos;
         int banda;
+        int total;
+        int totalc;
+        int spacios;
+        Vehicle vcobro;
         Driver obtenerdriver;
         Vehicle carrodato;
         public InterfazMain()
@@ -71,8 +75,12 @@ namespace ParkingJm
                 foreach (string line in System.IO.File.ReadLines("VehiculosPark.txt"))
                 {
                     string[] items = line.Split(',');
-                    drivers.Add(new Driver(items[0], items[2], items[3], true));
+                    string[] driver = items[4].Split(';');
+                    Vehicle obtenervehiculo = new Vehicle(items[0], items[1], items[2], new Driver(driver[0], driver[1], driver[2], Convert.ToBoolean(driver[3])));
+                    obtenervehiculo.timestamp = DateTime.Parse(items[3]);
+                    listavehiculos.Add(obtenervehiculo);
                 }
+                parqueaderochek();
 
             }
             else
@@ -80,8 +88,10 @@ namespace ParkingJm
                 for (int i = 0; i < 10; i++)
                 {
                     listavehiculos.Add(new Vehicle("Void", "Void", "Void", new Driver("Void", "Void", "Void", false)));
-
+                    spacios = 10;
+                    espaciosdis.Text = "Quedan " + spacios.ToString() + " espacios";
                 }
+                parqueaderochek();
             }
         }
 
@@ -147,12 +157,13 @@ namespace ParkingJm
                 MessageBox.Show("Se inscribio el afiliado " + RegisterBox.Text + " correctamente");
             }
             drivers.Add(new Driver(RegisterBox.Text, IdenBox.Text, SeBox.Text, true));
-            
+            //listavehiculos.Add(new Vehicle(PlacaBox.Text, MarcaBox.Text, TipoBox.Text,, true));
             afiliadoslist();
+            guardarlistafiliados(drivers[drivers.Count - 1]);
             RegisterBox.Text = "Nombre";
             IdenBox.Text = "Identificacion";
             SeBox.Text = "Sexo";
-            guardarlistafiliados(drivers[drivers.Count - 1]);
+            
             
         }
         
@@ -265,19 +276,17 @@ namespace ParkingJm
 
         private void RegistrarCarroClick_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text != "Eres Afiliado?")
+            foreach (Driver i in drivers)
             {
-                foreach (Driver r in drivers)
+                if (comboBox1.Text == i.Nombre)
                 {
-                    if(comboBox1.Text.Contains(r.Nombre))
-                    {
-                        obtenerdriver = r;
-                    }
+                    obtenerdriver = i;
+                    break;
                 }
-            }
-            else
-            {
-                obtenerdriver = new Driver(NombreBox2.Text, IdenBox2.Text, SeBox2.Text, false);
+                else
+                {
+                    obtenerdriver = new Driver(NombreBox2.Text, IdenBox2.Text, SeBox2.Text, false);
+                }
             }
             carrodato = new Vehicle(PlacaBox.Text, TipoBox.Text, MarcaBox.Text, obtenerdriver);
             int caminoDerecho = 0;
@@ -352,6 +361,8 @@ namespace ParkingJm
                     banda = ContIzquierdo;
                 }
             }
+            spacios--;
+            espaciosdis.Text ="Quedan " + spacios.ToString() + " espacios";
             listavehiculos = NuevaLista;
             parqueaderochek();
 
@@ -593,7 +604,31 @@ namespace ParkingJm
 
         private void LiquidarBtn_Click(object sender, EventArgs e)
         {
+            int tic = 0;
+            foreach (Vehicle i in listavehiculos)
+            {
+                if (i.Placa == vcobro.Placa | i.Conductor.Identificacion == vcobro.Conductor.Identificacion)
+                {
+                    spacios++;
+                    if (spacios > 0)
+                    {
+                        RegistrarCarroClick.Enabled = true;
+                        espaciosdis.Text = "Quedan " + spacios.ToString() + " espacios";
+                    }
+                    banda = tic + 1;
+                    listavehiculos[tic] = new Vehicle("Void", "Void", "Void", new Driver("Void", "Void", "Void", false));
+                    break;
+                }
+                tic++;
+            }
+            parqueaderochek();
+            puestostxt.Text = "Lugar de la plataforma: " + banda.ToString() + " 1";
 
+            total = total + totalc;
+            TotalBox.Text = "Total: " + total.ToString();
+
+            
+            VentasBox.Text = "\n" + VentasBox.Text + "\n" + "Información del carro: \n Placa: " + vcobro.Placa + "\n Tipo: " + vcobro.Tipo + "\n Marca: " + vcobro.Marca + "\n Información del cliente: \n Nombre: " + vcobro.Conductor.Nombre + "\n Identificación: " + vcobro.Conductor.Identificacion + "\n Sexo: " + vcobro.Conductor.Sexo + "\n Afiliacion: " + vcobro.Conductor.Afiliado;
         }
 
         private void pictureBox4_Click(object sender, EventArgs e)
@@ -602,6 +637,102 @@ namespace ParkingJm
         }
 
         private void NombreBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlacaEnter(object sender, EventArgs e)
+        {
+            if (PlacaBox.Text == "Placa Carro")
+            {
+                PlacaBox.Clear();
+            }
+        }
+
+        private void PlacaLeave(object sender, EventArgs e)
+        {
+            if (PlacaBox.Text == "")
+            {
+                PlacaBox.Text = "Placa Carro";
+            }
+        }
+
+        private void MarcaEnter(object sender, EventArgs e)
+        {
+            if (MarcaBox.Text == "Marca Carro")
+            {
+                MarcaBox.Clear();
+            }
+        }
+
+        private void MarcaLeave(object sender, EventArgs e)
+        {
+            if (MarcaBox.Text == "")
+            {
+                MarcaBox.Text = "Marca Carro";
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_Enter(object sender, EventArgs e)
+        {
+            
+             if (textBox4.Text == "Buscar vehiculo por placa o identificación del cliente")
+            {
+                textBox4.Clear();
+            }
+        }
+
+        private void textBox4_Leave(object sender, EventArgs e)
+        {
+            if (textBox4.Text == "")
+            {
+                textBox4.Text = "Buscar vehiculo por placa o identificación del cliente";
+            }
+        }
+
+        private void BuscarBtn_Click(object sender, EventArgs e)
+        {
+            foreach (Vehicle i in listavehiculos)
+            {
+                if (i.Placa == textBox4.Text | i.Conductor.Identificacion == textBox4.Text)
+                {
+                    InfoBox.Text = "Información del Carro: \n Placa: " + i.Placa + "\n Tipo: " + i.Tipo + "\n Marca: " + i.Marca + "\nInformacion del cliente: \n Nombre: " + i.Conductor.Nombre + "\n Identificacion: " + i.Conductor.Identificacion + "\n Sexo: " + i.Conductor.Sexo + "\n Afiliacion: " + i.Conductor.Afiliado;
+                    vcobro = i;
+                    break;
+                }
+                else
+                {
+                    InfoBox.Text = "No hay ningún carro que se halla ingresado con estos datos";
+                }
+            }
+            var tiempopasado = Math.Ceiling((DateTime.Now - vcobro.timestamp).TotalSeconds / 60);
+            int totalpay = 50 * Convert.ToInt32(tiempopasado);
+            if (vcobro.Tipo != "Particular")
+            {
+                totalpay = totalpay + Convert.ToInt32(totalpay * 0.2);
+            }
+            if (vcobro.Conductor.Afiliado == true)
+            {
+                totalpay = totalpay - Convert.ToInt32(totalpay * 0.1);
+            }
+            totalc = totalpay;
+            if (InfoBox.Text == "No hay ningún carro que se halla ingresado con estos datos")
+            {
+                MessageBox.Show("!Asegurate de haber ingresado bien los datos del cliente o la placa del carro!");
+            }
+            else
+            {
+                MessageBox.Show("Debido a que estuviste " + tiempopasado.ToString() + " minutos en el parqueadero, vas a tener que pagar $" + totalpay.ToString() + " pesos");
+            }
+            
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

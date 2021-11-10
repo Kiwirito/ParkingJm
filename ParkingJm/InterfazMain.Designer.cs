@@ -50,12 +50,10 @@ namespace ParkingJm
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.BuscarBtn = new System.Windows.Forms.Button();
             this.TipoBox = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.LiquidarBtn = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pua1 = new System.Windows.Forms.PictureBox();
@@ -80,6 +78,14 @@ namespace ParkingJm
             this.pua8 = new System.Windows.Forms.PictureBox();
             this.pua9 = new System.Windows.Forms.PictureBox();
             this.pua10 = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.TotalBox = new System.Windows.Forms.TextBox();
+            this.espaciosdis = new System.Windows.Forms.Label();
+            this.InfoBox = new System.Windows.Forms.RichTextBox();
+            this.VentasBox = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -108,11 +114,15 @@ namespace ParkingJm
             ((System.ComponentModel.ISupportInitialize)(this.pua8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pua9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pua10)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel1.Controls.Add(this.espaciosdis);
             this.panel1.Controls.Add(this.pua10);
             this.panel1.Controls.Add(this.pua9);
             this.panel1.Controls.Add(this.pua8);
@@ -146,7 +156,7 @@ namespace ParkingJm
             this.puestostxt.AutoSize = true;
             this.puestostxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.puestostxt.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.puestostxt.Location = new System.Drawing.Point(36, 706);
+            this.puestostxt.Location = new System.Drawing.Point(36, 689);
             this.puestostxt.Name = "puestostxt";
             this.puestostxt.Size = new System.Drawing.Size(338, 31);
             this.puestostxt.TabIndex = 3;
@@ -235,7 +245,7 @@ namespace ParkingJm
             this.IdenBox2.Name = "IdenBox2";
             this.IdenBox2.Size = new System.Drawing.Size(192, 22);
             this.IdenBox2.TabIndex = 8;
-            this.IdenBox2.Text = "Identificación";
+            this.IdenBox2.Text = "Identificacion";
             this.IdenBox2.Enter += new System.EventHandler(this.IdenBox2_Enter);
             this.IdenBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IdenBox2_KeyPress);
             this.IdenBox2.Leave += new System.EventHandler(this.IdenBox2_Leave);
@@ -273,6 +283,7 @@ namespace ParkingJm
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.LightSkyBlue;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.MidnightBlue;
             this.label2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -286,6 +297,7 @@ namespace ParkingJm
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.LightSkyBlue;
             this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(414, 0);
@@ -304,6 +316,8 @@ namespace ParkingJm
             this.PlacaBox.TabIndex = 31;
             this.PlacaBox.Text = "Placa Carro";
             this.PlacaBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.PlacaBox.Enter += new System.EventHandler(this.PlacaEnter);
+            this.PlacaBox.Leave += new System.EventHandler(this.PlacaLeave);
             // 
             // MarcaBox
             // 
@@ -315,6 +329,8 @@ namespace ParkingJm
             this.MarcaBox.Size = new System.Drawing.Size(192, 22);
             this.MarcaBox.TabIndex = 32;
             this.MarcaBox.Text = "Marca Carro";
+            this.MarcaBox.Enter += new System.EventHandler(this.MarcaEnter);
+            this.MarcaBox.Leave += new System.EventHandler(this.MarcaLeave);
             // 
             // RegistrarCarroClick
             // 
@@ -335,6 +351,7 @@ namespace ParkingJm
             // 
             // flowLayoutPanel2
             // 
+            this.flowLayoutPanel2.BackColor = System.Drawing.Color.LightSkyBlue;
             this.flowLayoutPanel2.Controls.Add(this.label3);
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(765, 0);
@@ -358,9 +375,10 @@ namespace ParkingJm
             // 
             // flowLayoutPanel3
             // 
+            this.flowLayoutPanel3.BackColor = System.Drawing.Color.LightSkyBlue;
             this.flowLayoutPanel3.Controls.Add(this.label4);
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(601, 289);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(585, 303);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(292, 36);
             this.flowLayoutPanel3.TabIndex = 36;
@@ -384,41 +402,32 @@ namespace ParkingJm
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.textBox4.Location = new System.Drawing.Point(414, 345);
+            this.textBox4.Location = new System.Drawing.Point(9, 45);
+            this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(447, 22);
+            this.textBox4.Size = new System.Drawing.Size(447, 27);
             this.textBox4.TabIndex = 37;
             this.textBox4.Text = "Buscar vehiculo por placa o identificación del cliente";
+            this.textBox4.Enter += new System.EventHandler(this.textBox4_Enter);
+            this.textBox4.Leave += new System.EventHandler(this.textBox4_Leave);
             // 
-            // button3
+            // BuscarBtn
             // 
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
-            this.button3.FlatAppearance.BorderSize = 2;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.button3.Location = new System.Drawing.Point(867, 340);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(74, 36);
-            this.button3.TabIndex = 38;
-            this.button3.Text = "Buscar";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // textBox5
-            // 
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox5.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.textBox5.Location = new System.Drawing.Point(414, 387);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(557, 148);
-            this.textBox5.TabIndex = 39;
-            this.textBox5.Text = "***Informacion del Carro*** ";
+            this.BuscarBtn.BackColor = System.Drawing.Color.White;
+            this.BuscarBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BuscarBtn.FlatAppearance.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.BuscarBtn.FlatAppearance.BorderSize = 2;
+            this.BuscarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BuscarBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BuscarBtn.ForeColor = System.Drawing.Color.LightSlateGray;
+            this.BuscarBtn.Location = new System.Drawing.Point(466, 41);
+            this.BuscarBtn.Name = "BuscarBtn";
+            this.BuscarBtn.Size = new System.Drawing.Size(74, 36);
+            this.BuscarBtn.TabIndex = 38;
+            this.BuscarBtn.Text = "Buscar";
+            this.BuscarBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BuscarBtn.UseVisualStyleBackColor = false;
+            this.BuscarBtn.Click += new System.EventHandler(this.BuscarBtn_Click);
             // 
             // TipoBox
             // 
@@ -438,9 +447,10 @@ namespace ParkingJm
             // 
             // flowLayoutPanel4
             // 
+            this.flowLayoutPanel4.BackColor = System.Drawing.Color.LightSkyBlue;
             this.flowLayoutPanel4.Controls.Add(this.label5);
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(557, 547);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(305, 3);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(384, 36);
             this.flowLayoutPanel4.TabIndex = 37;
@@ -457,19 +467,7 @@ namespace ParkingJm
             this.label5.TabIndex = 35;
             this.label5.Text = "Historial de Transsacciones";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBox3
-            // 
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.LightSlateGray;
-            this.textBox3.Location = new System.Drawing.Point(414, 595);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(680, 148);
-            this.textBox3.TabIndex = 41;
-            this.textBox3.Text = "***Informacion de Ventas*** ";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // LiquidarBtn
             // 
@@ -490,9 +488,10 @@ namespace ParkingJm
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackColor = System.Drawing.Color.LightSkyBlue;
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::ParkingJm.Properties.Resources.X;
-            this.pictureBox2.Location = new System.Drawing.Point(1057, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(397, 11);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(37, 33);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -502,7 +501,7 @@ namespace ParkingJm
             // 
             // pua1
             // 
-            this.pua1.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua1.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua1.Location = new System.Drawing.Point(181, 644);
             this.pua1.Name = "pua1";
@@ -649,7 +648,7 @@ namespace ParkingJm
             // 
             // pua2
             // 
-            this.pua2.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua2.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua2.Location = new System.Drawing.Point(292, 607);
             this.pua2.Name = "pua2";
@@ -660,7 +659,7 @@ namespace ParkingJm
             // 
             // pua3
             // 
-            this.pua3.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua3.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua3.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua3.Location = new System.Drawing.Point(352, 526);
             this.pua3.Name = "pua3";
@@ -671,7 +670,7 @@ namespace ParkingJm
             // 
             // pua4
             // 
-            this.pua4.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua4.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua4.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua4.Location = new System.Drawing.Point(352, 395);
             this.pua4.Name = "pua4";
@@ -682,7 +681,7 @@ namespace ParkingJm
             // 
             // pua5
             // 
-            this.pua5.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua5.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua5.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua5.Location = new System.Drawing.Point(292, 300);
             this.pua5.Name = "pua5";
@@ -693,7 +692,7 @@ namespace ParkingJm
             // 
             // pua6
             // 
-            this.pua6.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua6.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua6.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua6.Location = new System.Drawing.Point(181, 275);
             this.pua6.Name = "pua6";
@@ -704,7 +703,7 @@ namespace ParkingJm
             // 
             // pua7
             // 
-            this.pua7.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua7.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua7.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua7.Location = new System.Drawing.Point(60, 300);
             this.pua7.Name = "pua7";
@@ -715,7 +714,7 @@ namespace ParkingJm
             // 
             // pua8
             // 
-            this.pua8.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua8.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua8.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua8.Location = new System.Drawing.Point(4, 390);
             this.pua8.Name = "pua8";
@@ -726,7 +725,7 @@ namespace ParkingJm
             // 
             // pua9
             // 
-            this.pua9.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua9.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua9.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua9.Location = new System.Drawing.Point(3, 508);
             this.pua9.Name = "pua9";
@@ -737,7 +736,7 @@ namespace ParkingJm
             // 
             // pua10
             // 
-            this.pua10.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pua10.BackColor = System.Drawing.Color.LightSteelBlue;
             this.pua10.Image = global::ParkingJm.Properties.Resources.pua;
             this.pua10.Location = new System.Drawing.Point(60, 607);
             this.pua10.Name = "pua10";
@@ -746,19 +745,100 @@ namespace ParkingJm
             this.pua10.TabIndex = 38;
             this.pua10.TabStop = false;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel2.Location = new System.Drawing.Point(405, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(211, 288);
+            this.panel2.TabIndex = 43;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel3.Controls.Add(this.pictureBox2);
+            this.panel3.Location = new System.Drawing.Point(665, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(435, 288);
+            this.panel3.TabIndex = 44;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel4.Controls.Add(this.InfoBox);
+            this.panel4.Controls.Add(this.BuscarBtn);
+            this.panel4.Controls.Add(this.textBox4);
+            this.panel4.Location = new System.Drawing.Point(405, 300);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(695, 244);
+            this.panel4.TabIndex = 45;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel5.Controls.Add(this.VentasBox);
+            this.panel5.Controls.Add(this.TotalBox);
+            this.panel5.Controls.Add(this.flowLayoutPanel4);
+            this.panel5.Location = new System.Drawing.Point(405, 555);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(695, 244);
+            this.panel5.TabIndex = 46;
+            // 
+            // TotalBox
+            // 
+            this.TotalBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TotalBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalBox.ForeColor = System.Drawing.Color.LightSlateGray;
+            this.TotalBox.Location = new System.Drawing.Point(9, 10);
+            this.TotalBox.Name = "TotalBox";
+            this.TotalBox.Size = new System.Drawing.Size(229, 22);
+            this.TotalBox.TabIndex = 47;
+            this.TotalBox.Text = "Total: ";
+            // 
+            // espaciosdis
+            // 
+            this.espaciosdis.AutoSize = true;
+            this.espaciosdis.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.espaciosdis.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.espaciosdis.Location = new System.Drawing.Point(96, 729);
+            this.espaciosdis.Name = "espaciosdis";
+            this.espaciosdis.Size = new System.Drawing.Size(228, 25);
+            this.espaciosdis.TabIndex = 39;
+            this.espaciosdis.Text = "Quedan 10 espacios";
+            this.espaciosdis.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // InfoBox
+            // 
+            this.InfoBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InfoBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InfoBox.ForeColor = System.Drawing.Color.LightSlateGray;
+            this.InfoBox.Location = new System.Drawing.Point(9, 87);
+            this.InfoBox.Name = "InfoBox";
+            this.InfoBox.ReadOnly = true;
+            this.InfoBox.Size = new System.Drawing.Size(559, 148);
+            this.InfoBox.TabIndex = 39;
+            this.InfoBox.Text = "***Informacion del Carro***";
+            // 
+            // VentasBox
+            // 
+            this.VentasBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.VentasBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VentasBox.ForeColor = System.Drawing.Color.LightSlateGray;
+            this.VentasBox.Location = new System.Drawing.Point(9, 42);
+            this.VentasBox.Name = "VentasBox";
+            this.VentasBox.ReadOnly = true;
+            this.VentasBox.Size = new System.Drawing.Size(680, 157);
+            this.VentasBox.TabIndex = 48;
+            this.VentasBox.Text = "***Informacion de Ventas***";
+            // 
             // InterfazMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(1102, 750);
+            this.ClientSize = new System.Drawing.Size(1110, 763);
             this.Controls.Add(this.LiquidarBtn);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.TipoBox);
-            this.Controls.Add(this.flowLayoutPanel4);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.RegistrarCarroClick);
@@ -773,8 +853,11 @@ namespace ParkingJm
             this.Controls.Add(this.SeBox);
             this.Controls.Add(this.IdenBox);
             this.Controls.Add(this.RegisterBox);
-            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InterfazMain";
@@ -813,6 +896,11 @@ namespace ParkingJm
             ((System.ComponentModel.ISupportInitialize)(this.pua8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pua9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pua10)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -852,12 +940,10 @@ namespace ParkingJm
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Button BuscarBtn;
         private System.Windows.Forms.ComboBox TipoBox;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button LiquidarBtn;
         private System.Windows.Forms.PictureBox pua1;
         private System.Windows.Forms.PictureBox pua10;
@@ -869,5 +955,13 @@ namespace ParkingJm
         private System.Windows.Forms.PictureBox pua4;
         private System.Windows.Forms.PictureBox pua3;
         private System.Windows.Forms.PictureBox pua2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TextBox TotalBox;
+        private System.Windows.Forms.Label espaciosdis;
+        private System.Windows.Forms.RichTextBox InfoBox;
+        private System.Windows.Forms.RichTextBox VentasBox;
     }
 }
